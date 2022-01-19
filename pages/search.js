@@ -26,13 +26,13 @@ export async function getServerSideProps(context) {
   const useDummyData = false;
   const startIndex = context.query.start || "0";
 
-  console.log(context.query.term);
+  const url = `https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=${process.env.CONTEXT_KEY}&q=${context.query.term}&start=${startIndex}`;
+
+  console.log(url);
 
   const data = useDummyData
     ? Response
-    : await fetch(
-        `https://www.googleapis.com/customsearch/v1?key=${process.env.API_KEY}&cx=${process.env.CONTEXT_KEY}&q=${context.query.term}&start=${startIndex}`
-      ).then((response) => response.json());
+    : await fetch(url).then((response) => response.json());
 
   //www.googleapis.com/customsearch/v1?key=INSERT_YOUR_API_KEY&cx=017576662512468239146:omuauf_lfve&q=lectures
 
